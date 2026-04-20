@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lead Qualification Hub</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">n8n Lead Qualification Hub</p>
+          <h1>Painel enxuto para ajustar o WhatsApp e os nichos.</h1>
+          <p class="hero-copy">
+            Use esta tela apenas para trocar o número de destino e os nichos monitorados. O restante da operação continua preservado no backend.
+          </p>
+        </div>
+        <div class="hero-card">
+          <span class="badge" id="api-status">API verificando...</span>
+          <p class="hero-metric-label">Rotina atual</p>
+          <strong class="hero-metric">3x dia útil</strong>
+          <p class="hero-card-copy">O backend mantém horários, cidades, volume e integrações. Aqui você mexe só no essencial.</p>
+        </div>
+      </header>
+
+      <main class="single-panel">
+        <section class="panel compact-panel">
+          <div class="section-head">
+            <h2>Configuração essencial</h2>
+            <button id="load-config" class="secondary-button" type="button">Recarregar</button>
+          </div>
+
+          <form id="config-form" class="compact-form">
+            <label>
+              <span>WhatsApp de destino</span>
+              <input id="destinationWhatsApp" name="destinationWhatsApp" placeholder="5511999999999" />
+            </label>
+
+            <label>
+              <span>Nichos monitorados</span>
+              <textarea id="niches" name="niches" rows="8" placeholder="Um nicho por linha"></textarea>
+            </label>
+
+            <div class="actions">
+              <button class="primary-button" type="submit">Salvar configuração</button>
+              <button id="run-now" class="accent-button" type="button">Disparar agora</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <script src="/app-config.js"></script>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

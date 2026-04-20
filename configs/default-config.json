@@ -1,0 +1,30 @@
+{
+  "destinationWhatsApp": "",
+  "leadLimit": 20,
+  "runTime": "05:00",
+  "niches": [
+    "automacao de processos",
+    "desenvolvimento de software",
+    "suporte de TI"
+  ],
+  "nationwide": false,
+  "priorityCities": [
+    "Curitiba",
+    "Sao Jose dos Pinhais"
+  ],
+  "secondaryCities": [
+    "Pinhais",
+    "Colombo",
+    "Araucaria",
+    "Campo Largo"
+  ],
+  "cities": [
+    "Curitiba",
+    "Sao Jose dos Pinhais",
+    "Pinhais",
+    "Colombo",
+    "Araucaria",
+    "Campo Largo"
+  ],
+  "active": true
+}

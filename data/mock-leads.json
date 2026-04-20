@@ -1,0 +1,268 @@
+[
+  {
+    "id": "lead-001",
+    "companyName": "CliniFlow Diagnosticos",
+    "segment": "clinicas",
+    "city": "Sao Paulo",
+    "region": "SP",
+    "contactName": "Mariana Costa",
+    "website": "https://cliniflow.example.com",
+    "painPoints": [
+      "agendamentos manuais",
+      "reconfirmacao via WhatsApp inexistente",
+      "retrabalho no financeiro"
+    ],
+    "desiredOutcomes": [
+      "automatizar confirmacao",
+      "integrar agenda e faturamento"
+    ],
+    "companySize": "medium",
+    "digitalMaturity": "medium",
+    "budgetBand": "mid",
+    "urgency": "high",
+    "source": "mock_database"
+  },
+  {
+    "id": "lead-002",
+    "companyName": "ContabPrime Assessoria",
+    "segment": "escritorios contabeis",
+    "city": "Campinas",
+    "region": "SP",
+    "contactName": "Felipe Nogueira",
+    "website": "https://contabprime.example.com",
+    "painPoints": [
+      "coleta de documentos por e-mail",
+      "falhas de follow-up",
+      "muito trabalho repetitivo"
+    ],
+    "desiredOutcomes": [
+      "portal automatizado",
+      "integracoes com ERP"
+    ],
+    "companySize": "small",
+    "digitalMaturity": "medium",
+    "budgetBand": "mid",
+    "urgency": "high",
+    "source": "mock_database"
+  },
+  {
+    "id": "lead-003",
+    "companyName": "Metalurgica Vale Forte",
+    "segment": "industria",
+    "city": "Sorocaba",
+    "region": "SP",
+    "contactName": "Ronaldo Lima",
+    "website": "https://valeforte.example.com",
+    "painPoints": [
+      "apontamento de producao em planilhas",
+      "baixa visibilidade operacional"
+    ],
+    "desiredOutcomes": [
+      "dashboard operacional",
+      "integracao entre setores"
+    ],
+    "companySize": "medium",
+    "digitalMaturity": "low",
+    "budgetBand": "mid",
+    "urgency": "medium",
+    "source": "mock_database"
+  },
+  {
+    "id": "lead-004",
+    "companyName": "Moveis Elegance",
+    "segment": "varejo",
+    "city": "Santos",
+    "region": "SP",
+    "contactName": "Vanessa Prado",
+    "website": "https://moveiselegance.example.com",
+    "painPoints": [
+      "leads do Instagram sem resposta rapida",
+      "cadastro manual de pedidos"
+    ],
+    "desiredOutcomes": [
+      "bot comercial",
+      "integracao com CRM"
+    ],
+    "companySize": "small",
+    "digitalMaturity": "medium",
+    "budgetBand": "low",
+    "urgency": "high",
+    "source": "mock_database"
+  },
+  {
+    "id": "lead-005",
+    "companyName": "Nexus TI Managed Services",
+    "segment": "suporte de TI",
+    "city": "Sao Paulo",
+    "region": "SP",
+    "contactName": "Eduardo Simas",
+    "website": "https://nexusti.example.com",
+    "painPoints": [
+      "atendimento disperso em varios canais",
+      "sem base de conhecimento"
+    ],
+    "desiredOutcomes": [
+      "centralizar chamados",
+      "automatizar triagem"
+    ],
+    "companySize": "medium",
+    "digitalMaturity": "high",
+    "budgetBand": "high",
+    "urgency": "medium",
+    "source": "mock_database"
+  },
+  {
+    "id": "lead-006",
+    "companyName": "RotaLog Operacoes",
+    "segment": "logistica",
+    "city": "Guarulhos",
+    "region": "SP",
+    "contactName": "Patricia Souza",
+    "website": "https://rotalog.example.com",
+    "painPoints": [
+      "roteirizacao manual",
+      "falta de alertas proativos"
+    ],
+    "desiredOutcomes": [
+      "fluxos operacionais",
+      "alertas automatizados"
+    ],
+    "companySize": "large",
+    "digitalMaturity": "medium",
+    "budgetBand": "high",
+    "urgency": "high",
+    "source": "mock_database"
+  },
+  {
+    "id": "lead-007",
+    "companyName": "Juridico Atlas",
+    "segment": "escritorios juridicos",
+    "city": "Sao Paulo",
+    "region": "SP",
+    "contactName": "Camila Vasconcelos",
+    "website": "https://atlasjuridico.example.com",
+    "painPoints": [
+      "prazo de resposta lento",
+      "workflow de documentos pouco padronizado"
+    ],
+    "desiredOutcomes": [
+      "automacao de intake",
+      "integracao documental"
+    ],
+    "companySize": "small",
+    "digitalMaturity": "medium",
+    "budgetBand": "mid",
+    "urgency": "medium",
+    "source": "mock_database"
+  },
+  {
+    "id": "lead-008",
+    "companyName": "Clinica Harmonia",
+    "segment": "clinicas",
+    "city": "Campinas",
+    "region": "SP",
+    "contactName": "Juliana Melo",
+    "website": "https://harmonia.example.com",
+    "painPoints": [
+      "faltas em consultas",
+      "respostas lentas para novos pacientes"
+    ],
+    "desiredOutcomes": [
+      "bot de qualificacao",
+      "confirmacao automatica"
+    ],
+    "companySize": "small",
+    "digitalMaturity": "medium",
+    "budgetBand": "mid",
+    "urgency": "high",
+    "source": "mock_database"
+  },
+  {
+    "id": "lead-009",
+    "companyName": "Grupo Conecta Integracoes",
+    "segment": "integracoes",
+    "city": "Sao Paulo",
+    "region": "SP",
+    "contactName": "Thiago Barreto",
+    "website": "https://conecta.example.com",
+    "painPoints": [
+      "dados fragmentados em ferramentas diferentes",
+      "repasse manual entre times"
+    ],
+    "desiredOutcomes": [
+      "integracao de sistemas",
+      "orquestracao com APIs"
+    ],
+    "companySize": "medium",
+    "digitalMaturity": "high",
+    "budgetBand": "high",
+    "urgency": "high",
+    "source": "mock_database"
+  },
+  {
+    "id": "lead-010",
+    "companyName": "Mercado Bairro Feliz",
+    "segment": "varejo",
+    "city": "Osasco",
+    "region": "SP",
+    "contactName": "Andre Cezar",
+    "website": "https://bairrofeliz.example.com",
+    "painPoints": [
+      "controle manual de estoque",
+      "baixo reaproveitamento de contatos"
+    ],
+    "desiredOutcomes": [
+      "automacao de atendimento",
+      "painel simples de estoque"
+    ],
+    "companySize": "small",
+    "digitalMaturity": "low",
+    "budgetBand": "low",
+    "urgency": "medium",
+    "source": "mock_database"
+  },
+  {
+    "id": "lead-011",
+    "companyName": "HubBots Conversacionais",
+    "segment": "bots",
+    "city": "Barueri",
+    "region": "SP",
+    "contactName": "Gustavo Teles",
+    "website": "https://hubbots.example.com",
+    "painPoints": [
+      "falta governanca nos fluxos",
+      "necessidade de manutencao constante"
+    ],
+    "desiredOutcomes": [
+      "revisao de bots",
+      "suporte tecnico estruturado"
+    ],
+    "companySize": "small",
+    "digitalMaturity": "high",
+    "budgetBand": "mid",
+    "urgency": "medium",
+    "source": "mock_database"
+  },
+  {
+    "id": "lead-012",
+    "companyName": "Operax Consultoria",
+    "segment": "fluxos operacionais",
+    "city": "Sao Jose dos Campos",
+    "region": "SP",
+    "contactName": "Renata Pires",
+    "website": "https://operax.example.com",
+    "painPoints": [
+      "processos internos sem padrao",
+      "dificuldade para medir SLA"
+    ],
+    "desiredOutcomes": [
+      "mapear processos",
+      "automatizar etapas criticas"
+    ],
+    "companySize": "medium",
+    "digitalMaturity": "medium",
+    "budgetBand": "high",
+    "urgency": "high",
+    "source": "mock_database"
+  }
+]

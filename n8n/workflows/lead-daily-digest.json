@@ -1,0 +1,114 @@
+{
+  "name": "Lead Daily Qualification Digest",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 5,10,15 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "cron-daily-0500",
+      "name": "Weekday Triggers 05:00 10:00 15:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        260,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8095/api/run",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"reason\": \"n8n-scheduled-run\",\n  \"limit\": 20\n}",
+        "options": {}
+      },
+      "id": "http-run-leads",
+      "name": "Run Lead Qualification",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        520,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const payload = $json;\nreturn [{ json: {\n  generatedAt: payload.generatedAt,\n  destinationWhatsApp: payload.config.destinationWhatsApp,\n  totalQualified: payload.summary.totalQualified,\n  highPriorityCount: payload.summary.highPriorityCount,\n  averageScore: payload.summary.averageScore,\n  topLead: payload.leads[0] || null,\n  digest: payload.digest,\n  whatsappDispatch: payload.whatsappDispatch,\n  providerDiagnostics: payload.providerDiagnostics\n}}];"
+      },
+      "id": "code-build-digest",
+      "name": "Build Digest Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        780,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: {\n  status: $json.whatsappDispatch?.status || 'not-available',\n  dispatched: Boolean($json.whatsappDispatch?.dispatched),\n  provider: $json.whatsappDispatch?.providerName || 'unknown',\n  destination: $json.whatsappDispatch?.payload?.destination || $json.destinationWhatsApp || '',\n  fallbackUsed: Boolean($json.whatsappDispatch?.fallbackUsed),\n  messagePreview: $json.whatsappDispatch?.payload?.messagePreview || $json.whatsappDispatch?.payload?.request?.body?.message || $json.whatsappDispatch?.payload?.request?.body?.text || '',\n  diagnostics: $json.whatsappDispatch?.diagnostics || [],\n  digest: $json.digest,\n  topLead: $json.topLead\n}}];"
+      },
+      "id": "code-whatsapp-placeholder",
+      "name": "Inspect WhatsApp Dispatch",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        280
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Daily Trigger 05:00": {
+      "main": [
+        [
+          {
+            "node": "Run Lead Qualification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Lead Qualification": {
+      "main": [
+        [
+          {
+            "node": "Build Digest Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Digest Payload": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp Placeholder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "timezone": "America/Sao_Paulo"
+  },
+  "versionId": "lead-daily-digest-v1",
+  "meta": {
+    "instanceId": "local-lead-qualification-hub"
+  },
+  "id": "lead-daily-digest"
+}

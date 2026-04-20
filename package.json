@@ -1,0 +1,19 @@
+{
+  "name": "n8n-lead-qualification-hub",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo local para captação e qualificação de leads com n8n, backend Node.js e frontend configurador.",
+  "workspaces": [
+    "apps/backend",
+    "apps/frontend"
+  ],
+  "scripts": {
+    "setup": "sh scripts/setup-local.sh",
+    "dev:backend": "npm --workspace apps/backend run dev",
+    "dev:frontend": "npm --workspace apps/frontend run dev",
+    "dev": "sh scripts/run-dev.sh",
+    "start:backend": "npm --workspace apps/backend run start",
+    "start:frontend": "npm --workspace apps/frontend run start",
+    "check": "npm --workspace apps/backend run check && npm --workspace apps/frontend run check"
+  }
+}
