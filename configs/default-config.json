@@ -3,9 +3,16 @@
   "leadLimit": 20,
   "runTime": "05:00",
   "niches": [
-    "automacao de processos",
-    "desenvolvimento de software",
-    "suporte de TI"
+    "clinica medica",
+    "clinica odontologica",
+    "escritorio contabil",
+    "imobiliaria",
+    "escola particular",
+    "autopecas",
+    "distribuidora",
+    "transportadora",
+    "material de construcao",
+    "industria"
   ],
   "nationwide": false,
   "priorityCities": [

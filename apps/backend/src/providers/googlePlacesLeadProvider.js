@@ -2,7 +2,7 @@ import axios from "axios";
 import { env } from "../config/env.js";
 import { buildGeographicStrategy } from "../services/geographicStrategyService.js";
 import { getPlacesUsageFilePath, getPlacesUsageSnapshot, reserveGooglePlacesCall } from "../services/placesUsageStore.js";
-import { normalizeText } from "../utils/text.js";
+import { normalizeText, normalizedIncludes, uniqueCompactStrings } from "../utils/text.js";
 
 class GooglePlacesLeadProviderError extends Error {
   constructor(message, providerMeta = {}, options = {}) {
@@ -113,6 +113,46 @@ const buyerIntentSegments = [
     digitalMaturity: "medium",
     budgetBand: "mid",
     urgency: "medium"
+  },
+  {
+    label: "clinica de estetica",
+    searchTerms: ["clinica de estetica", "estetica", "harmonizacao facial"],
+    desiredOutcomes: ["automacao de atendimento", "confirmacao automatizada", "bot de WhatsApp"],
+    painPoints: ["alto volume de agendamentos", "triagem manual de procedimentos"],
+    companySize: "small",
+    digitalMaturity: "medium",
+    budgetBand: "mid",
+    urgency: "high"
+  },
+  {
+    label: "pet shop",
+    searchTerms: ["pet shop", "clinica veterinaria", "veterinario"],
+    desiredOutcomes: ["automacao de atendimento", "confirmacao automatizada", "organizacao operacional"],
+    painPoints: ["agendamentos manuais", "alto volume de contatos repetitivos"],
+    companySize: "small",
+    digitalMaturity: "medium",
+    budgetBand: "mid",
+    urgency: "medium"
+  },
+  {
+    label: "oficina mecanica",
+    searchTerms: ["oficina mecanica", "auto center", "mecanica automotiva"],
+    desiredOutcomes: ["triagem de atendimento", "automacao comercial", "organizacao operacional"],
+    painPoints: ["orcamentos manuais", "atendimento repetitivo em varios canais"],
+    companySize: "medium",
+    digitalMaturity: "medium",
+    budgetBand: "mid",
+    urgency: "medium"
+  },
+  {
+    label: "academia",
+    searchTerms: ["academia", "centro de treinamento", "pilates"],
+    desiredOutcomes: ["automacao de atendimento", "bot comercial", "organizacao de processos"],
+    painPoints: ["alto volume de leads e duvidas repetitivas", "follow-up manual"],
+    companySize: "small",
+    digitalMaturity: "medium",
+    budgetBand: "mid",
+    urgency: "medium"
   }
 ];
 
@@ -168,8 +208,24 @@ const operationalBuyerTerms = [
   "construc",
   "logist",
   "escola",
-  "colegio"
+  "colegio",
+  "estet",
+  "pet",
+  "veter",
+  "oficin",
+  "mecanic",
+  "academ",
+  "pilates"
 ];
+
+const genericBuyerSegmentDefaults = {
+  desiredOutcomes: ["automacao de processos", "triagem de atendimento", "integracoes entre sistemas"],
+  painPoints: ["processos manuais", "atendimento repetitivo", "retrabalho operacional"],
+  companySize: "medium",
+  digitalMaturity: "medium",
+  budgetBand: "mid",
+  urgency: "medium"
+};
 
 function toArrayUnique(values) {
   return [...new Set((values || []).filter(Boolean))];
@@ -190,12 +246,39 @@ function buildLocationQueries(config) {
   return toArrayUnique(locations);
 }
 
+function matchesConfiguredNiche(segment, niche) {
+  const candidates = [segment.label, ...(segment.searchTerms || [])];
+  return candidates.some((candidate) => normalizedIncludes(candidate, niche));
+}
+
+function createGenericBuyerSegment(niche) {
+  return {
+    label: niche,
+    searchTerms: [niche],
+    ...genericBuyerSegmentDefaults
+  };
+}
+
+function buildConfiguredSegments(config) {
+  const configuredNiches = uniqueCompactStrings(config.niches || []);
+
+  if (!configuredNiches.length) {
+    return buyerIntentSegments;
+  }
+
+  return configuredNiches.map((niche) => {
+    const matchedSegment = buyerIntentSegments.find((segment) => matchesConfiguredNiche(segment, niche));
+    return matchedSegment || createGenericBuyerSegment(niche);
+  });
+}
+
 function buildQueryPlan(config) {
   const locations = buildLocationQueries(config);
+  const configuredSegments = buildConfiguredSegments(config);
   const plan = [];
 
-  for (const location of locations) {
-    for (const segment of buyerIntentSegments) {
+  for (const segment of configuredSegments) {
+    for (const location of locations) {
       const term = segment.searchTerms[0];
       plan.push({
         buyerSegment: segment,
