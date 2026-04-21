@@ -277,8 +277,9 @@ function buildQueryPlan(config) {
   const configuredSegments = buildConfiguredSegments(config);
   const plan = [];
 
-  for (const segment of configuredSegments) {
-    for (const location of locations) {
+  // Interleave niches per city so the capped run stays diversified.
+  for (const location of locations) {
+    for (const segment of configuredSegments) {
       const term = segment.searchTerms[0];
       plan.push({
         buyerSegment: segment,
