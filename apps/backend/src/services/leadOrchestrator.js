@@ -1,6 +1,9 @@
 import { getLeadProviderPlan } from "../providers/leadProviderFactory.js";
 import { executeLeadProvider } from "../providers/leadProviderRuntime.js";
 import { qualifyLead } from "./leadScoringService.js";
+import { getLeadHistory } from "./leadStore.js";
+import { normalizeText } from "../utils/text.js";
+import { isValidWhatsAppPhone, normalizeWhatsAppPhone } from "../utils/phone.js";
 
 function average(values) {
   if (!values.length) {
@@ -14,13 +17,43 @@ function average(values) {
 function uniqueById(leads) {
   const seen = new Set();
   return leads.filter((lead) => {
-    if (seen.has(lead.id)) {
+    const fingerprint = createLeadFingerprint(lead);
+    const keys = [
+      lead.id ? `id:${lead.id}` : "",
+      lead.contactPhone ? `phone:${normalizeWhatsAppPhone(lead.contactPhone)}` : "",
+      fingerprint ? `fingerprint:${fingerprint}` : ""
+    ].filter(Boolean);
+
+    if (!keys.length || keys.some((key) => seen.has(key))) {
       return false;
     }
 
-    seen.add(lead.id);
+    keys.forEach((key) => seen.add(key));
     return true;
   });
+}
+
+function createLeadFingerprint(lead) {
+  return normalizeText([lead.companyName || "", lead.city || "", lead.segment || ""].join("|"));
+}
+
+function hasValidWhatsApp(lead) {
+  return isValidWhatsAppPhone(lead.contactPhone || lead.metadata?.contactPhone || "");
+}
+
+function isNewLead(lead, historyKeys) {
+  const fingerprint = createLeadFingerprint(lead);
+  const keys = [
+    lead.id ? `id:${lead.id}` : "",
+    lead.contactPhone ? `phone:${normalizeWhatsAppPhone(lead.contactPhone)}` : "",
+    fingerprint ? `fingerprint:${fingerprint}` : ""
+  ].filter(Boolean);
+
+  if (!keys.length) {
+    return false;
+  }
+
+  return keys.every((key) => !historyKeys.has(key));
 }
 
 function groupBySegment(leads) {
@@ -75,6 +108,22 @@ function selectDiversifiedLeads(leads, limit) {
 
 export async function runLeadQualification(config, options = {}) {
   const { primaryProviders, fallbackProvider } = getLeadProviderPlan();
+  const leadHistory = await getLeadHistory();
+  const historyKeys = new Set();
+
+  for (const lead of leadHistory.leads) {
+    if (lead.id) {
+      historyKeys.add(`id:${lead.id}`);
+    }
+
+    if (lead.contactPhone) {
+      historyKeys.add(`phone:${lead.contactPhone}`);
+    }
+
+    if (lead.fingerprint) {
+      historyKeys.add(`fingerprint:${lead.fingerprint}`);
+    }
+  }
 
   if (!primaryProviders.length && !fallbackProvider) {
     return {
@@ -117,7 +166,9 @@ export async function runLeadQualification(config, options = {}) {
     : [];
   const providerResults = [...primaryResults, ...fallbackResults];
 
-  const combinedLeads = uniqueById(providerResults.flatMap((result) => result.leads));
+  const combinedLeads = uniqueById(providerResults.flatMap((result) => result.leads))
+    .filter(hasValidWhatsApp)
+    .filter((lead) => isNewLead(lead, historyKeys));
   const scoredLeads = combinedLeads
     .map((lead) => qualifyLead(lead, config))
     .sort((left, right) => right.score - left.score);
@@ -170,6 +221,10 @@ export async function runLeadQualification(config, options = {}) {
       quotaBlocked: result.providerMeta?.quotaBlocked || false,
       quotaReason: result.providerMeta?.quotaReason || null
     })),
+    leadFilters: {
+      whatsappOnly: true,
+      historyDeduplication: true
+    },
     leads: qualified
   };
 }

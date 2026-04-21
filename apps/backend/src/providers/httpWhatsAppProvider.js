@@ -1,5 +1,6 @@
 import axios from "axios";
 import { env } from "../config/env.js";
+import { isValidWhatsAppPhone, normalizeWhatsAppPhone } from "../utils/phone.js";
 
 class WhatsAppProviderHttpError extends Error {
   constructor(message, diagnostics = {}, options = {}) {
@@ -38,36 +39,14 @@ function getValueByPath(source, path) {
   }, source);
 }
 
-function normalizeWhatsAppNumber(value) {
-  const digits = String(value || "").replace(/\D/g, "");
-
-  if (!digits) {
-    return "";
-  }
-
-  if (digits.startsWith("55")) {
-    return digits;
-  }
-
-  if (digits.length === 11 || digits.length === 10) {
-    return `55${digits}`;
-  }
-
-  return digits;
-}
-
 function normalizeContactActionNumber(value) {
-  const normalized = normalizeWhatsAppNumber(value);
+  const normalized = normalizeWhatsAppPhone(value);
 
-  if (!normalized) {
+  if (!isValidWhatsAppPhone(normalized)) {
     return "";
   }
 
-  if (normalized.startsWith("55") && normalized.length >= 12) {
-    return normalized;
-  }
-
-  return "";
+  return normalized;
 }
 
 function buildLeadContactLine(lead, index) {
@@ -178,7 +157,7 @@ export const httpWhatsAppProvider = {
     return Boolean(env.whatsappApiBaseUrl);
   },
   createPayload({ destinationWhatsApp, digest, summary, leads = [] }) {
-    const destinationNumber = normalizeWhatsAppNumber(destinationWhatsApp);
+    const destinationNumber = normalizeWhatsAppPhone(destinationWhatsApp);
     const message = buildMessage({ digest, summary, leads });
     const requestUrl = env.whatsappApiBaseUrl ? buildUrl(env.whatsappApiBaseUrl, env.whatsappApiPath) : "";
     const requestBody = buildRequestBody({

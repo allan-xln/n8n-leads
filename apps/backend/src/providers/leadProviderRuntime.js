@@ -1,4 +1,5 @@
 import { normalizeText, uniqueCompactStrings } from "../utils/text.js";
+import { normalizeWhatsAppPhone } from "../utils/phone.js";
 
 function toStringArray(value) {
   if (!value) {
@@ -30,7 +31,7 @@ function normalizeLead(rawLead, providerName) {
     city: lead.city || lead.locationCity || "Nao informado",
     region: lead.region || lead.state || "NA",
     contactName: lead.contactName || lead.contact || "Contato nao informado",
-    contactPhone: lead.contactPhone || lead.phone || "",
+    contactPhone: normalizeWhatsAppPhone(lead.contactPhone || lead.phone || ""),
     website: lead.website || lead.site || "",
     painPoints: toStringArray(lead.painPoints || lead.pains),
     desiredOutcomes: toStringArray(lead.desiredOutcomes || lead.objectives),

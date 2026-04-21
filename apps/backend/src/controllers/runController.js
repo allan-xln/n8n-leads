@@ -1,6 +1,6 @@
 import { env } from "../config/env.js";
 import { getConfig } from "../services/configStore.js";
-import { getLatestLeadBatch, saveLatestLeadBatch } from "../services/leadStore.js";
+import { getLatestLeadBatch, registerLeadHistory, saveLatestLeadBatch } from "../services/leadStore.js";
 import { runLeadQualification } from "../services/leadOrchestrator.js";
 import { createWhatsAppDispatchPreview } from "../services/whatsappDispatchService.js";
 import { runInputSchema } from "../types/config.js";
@@ -37,6 +37,7 @@ export async function runLeadBatch(request, response, next) {
       whatsappDispatch
     };
 
+    await registerLeadHistory(batch.leads);
     await saveLatestLeadBatch(batch);
     response.json(batch);
   } catch (error) {
