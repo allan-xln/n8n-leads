@@ -548,7 +548,7 @@ export const googlePlacesLeadProvider = {
           collected.push(mapPlaceToLead(place, query));
         }
 
-        if (collected.length >= config.leadLimit) {
+        if (collected.length >= config.leadLimit * 3) {
           break;
         }
       } catch (error) {
@@ -574,7 +574,7 @@ export const googlePlacesLeadProvider = {
       }
     }
 
-    const leads = dedupeLeads(collected).slice(0, config.leadLimit);
+    const leads = dedupeLeads(collected).slice(0, config.leadLimit * 3);
 
     return {
       leads,

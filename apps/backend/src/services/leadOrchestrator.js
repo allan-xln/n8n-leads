@@ -23,6 +23,56 @@ function uniqueById(leads) {
   });
 }
 
+function groupBySegment(leads) {
+  const groups = new Map();
+
+  for (const lead of leads) {
+    const segment = lead.segment || "geral";
+
+    if (!groups.has(segment)) {
+      groups.set(segment, []);
+    }
+
+    groups.get(segment).push(lead);
+  }
+
+  return groups;
+}
+
+function selectDiversifiedLeads(leads, limit) {
+  const sortedLeads = [...leads].sort((left, right) => right.score - left.score);
+  const grouped = groupBySegment(sortedLeads);
+  const segmentOrder = [...grouped.entries()]
+    .sort((left, right) => right[1][0].score - left[1][0].score)
+    .map(([segment]) => segment);
+  const selected = [];
+
+  while (selected.length < limit) {
+    let addedInRound = false;
+
+    for (const segment of segmentOrder) {
+      const segmentLeads = grouped.get(segment) || [];
+
+      if (!segmentLeads.length) {
+        continue;
+      }
+
+      selected.push(segmentLeads.shift());
+      addedInRound = true;
+
+      if (selected.length >= limit) {
+        break;
+      }
+    }
+
+    if (!addedInRound) {
+      break;
+    }
+  }
+
+  return selected;
+}
+
 export async function runLeadQualification(config, options = {}) {
   const { primaryProviders, fallbackProvider } = getLeadProviderPlan();
 
@@ -68,10 +118,10 @@ export async function runLeadQualification(config, options = {}) {
   const providerResults = [...primaryResults, ...fallbackResults];
 
   const combinedLeads = uniqueById(providerResults.flatMap((result) => result.leads));
-  const qualified = combinedLeads
+  const scoredLeads = combinedLeads
     .map((lead) => qualifyLead(lead, config))
-    .sort((left, right) => right.score - left.score)
-    .slice(0, options.limit || config.leadLimit);
+    .sort((left, right) => right.score - left.score);
+  const qualified = selectDiversifiedLeads(scoredLeads, options.limit || config.leadLimit);
 
   const highPriorityLeads = qualified.filter((lead) => lead.priority === "high");
   const topSegments = [...new Set(qualified.map((lead) => lead.segment))].slice(0, 3);
