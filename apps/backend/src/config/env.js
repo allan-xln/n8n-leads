@@ -103,5 +103,11 @@ export const env = {
   whatsappApiMessageField: process.env.WHATSAPP_API_MESSAGE_FIELD || "message",
   whatsappApiResponsePath: process.env.WHATSAPP_API_RESPONSE_PATH || "",
   whatsappApiExtraBody: toJsonObject(process.env.WHATSAPP_API_EXTRA_BODY_JSON, {}),
-  whatsappApiSourceNumber: toString(process.env.WHATSAPP_API_SOURCE_NUMBER, "")
+  whatsappApiSourceNumber: toString(process.env.WHATSAPP_API_SOURCE_NUMBER, ""),
+  whatsappLeadVerificationEnabled: toBoolean(
+    process.env.WHATSAPP_LEAD_VERIFICATION_ENABLED,
+    (process.env.WHATSAPP_API_PROVIDER_KIND || process.env.WHATSAPP_API_MODE || process.env.WHATSAPP_PROVIDER) === "evolution"
+  ),
+  whatsappNumberCheckPath: process.env.WHATSAPP_NUMBER_CHECK_PATH || "/chat/whatsappNumbers/{instance}",
+  whatsappNumberCheckBatchSize: toNumber(process.env.WHATSAPP_NUMBER_CHECK_BATCH_SIZE, 20)
 };

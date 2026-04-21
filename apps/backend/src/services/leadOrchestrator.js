@@ -4,6 +4,7 @@ import { qualifyLead } from "./leadScoringService.js";
 import { getLeadHistory } from "./leadStore.js";
 import { normalizeText } from "../utils/text.js";
 import { isValidWhatsAppPhone, normalizeWhatsAppPhone } from "../utils/phone.js";
+import { verifyLeadWhatsAppNumbers } from "./whatsappNumberValidationService.js";
 
 function average(values) {
   if (!values.length) {
@@ -169,7 +170,10 @@ export async function runLeadQualification(config, options = {}) {
   const combinedLeads = uniqueById(providerResults.flatMap((result) => result.leads))
     .filter(hasValidWhatsApp)
     .filter((lead) => isNewLead(lead, historyKeys));
+  const verifiedWhatsAppResult = await verifyLeadWhatsAppNumbers(combinedLeads);
+  const verifiedLeadIds = new Set(verifiedWhatsAppResult.leads.map((lead) => lead.id));
   const scoredLeads = combinedLeads
+    .filter((lead) => verifiedLeadIds.has(lead.id))
     .map((lead) => qualifyLead(lead, config))
     .sort((left, right) => right.score - left.score);
   const qualified = selectDiversifiedLeads(scoredLeads, options.limit || config.leadLimit);
@@ -223,7 +227,11 @@ export async function runLeadQualification(config, options = {}) {
     })),
     leadFilters: {
       whatsappOnly: true,
-      historyDeduplication: true
+      historyDeduplication: true,
+      whatsappVerified: !verifiedWhatsAppResult.skipped,
+      whatsappCheckReason: verifiedWhatsAppResult.reason,
+      whatsappCheckedCount: verifiedWhatsAppResult.checkedCount,
+      whatsappVerifiedCount: verifiedWhatsAppResult.verifiedCount
     },
     leads: qualified
   };

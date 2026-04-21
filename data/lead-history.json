@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-21T21:44:38.474Z",
+  "updatedAt": "2026-04-21T21:59:02.106Z",
   "leads": [
     {
       "id": "ChIJT8cNoRbl3JQRtwR0uw3J7no",
@@ -100,6 +100,106 @@
       "id": "ChIJ_wdC7Wzk3JQRZ_qzgPRB5Vk",
       "contactPhone": "554130695600",
       "fingerprint": "marmo contabil|sao jose dos pinhais|escritorio contabil"
+    },
+    {
+      "id": "ChIJaa3iHpTiPY8R94jc-zH2-SM",
+      "contactPhone": "5541991674107",
+      "fingerprint": "easy contabilidade curitiba|curitiba|escritorio contabil"
+    },
+    {
+      "id": "ChIJn6QJS-H63JQROIdxX30tg3k",
+      "contactPhone": "554121050405",
+      "fingerprint": "marechal imoveis|curitiba|imobiliaria"
+    },
+    {
+      "id": "ChIJE5T4x_f63JQRPPnvQbZI3A4",
+      "contactPhone": "554132865545",
+      "fingerprint": "auto pecas marechal|curitiba|autopecas"
+    },
+    {
+      "id": "ChIJizR27mPl3JQRzf2mDllb9PA",
+      "contactPhone": "554130299025",
+      "fingerprint": "curitiba distribuidora de bebidas|curitiba|distribuidora"
+    },
+    {
+      "id": "ChIJhwdol37-3JQRcf0yxRdbUAA",
+      "contactPhone": "5541996500365",
+      "fingerprint": "ptl logistica|curitiba|transportadora"
+    },
+    {
+      "id": "ChIJe8Cjj8Tk3JQRN1MlBI3lWqk",
+      "contactPhone": "551140205376",
+      "fingerprint": "leroy merlin curitiba sul|curitiba|material de construcao"
+    },
+    {
+      "id": "ChIJcWWg82D93JQR0QFlORfaTJk",
+      "contactPhone": "5541985273747",
+      "fingerprint": "br brasil industria quimica|curitiba|industria"
+    },
+    {
+      "id": "ChIJ_Uv9JKzw3JQRN5ut4pqSVns",
+      "contactPhone": "554132405700",
+      "fingerprint": "centro hospitalar nossa saude - unidade sao jose dos pinhais|sao jose dos pinhais|clinica medica"
+    },
+    {
+      "id": "ChIJeyitMxj33JQRmNeBAxLrJGI",
+      "contactPhone": "5541992798972",
+      "fingerprint": "colegio exemplar|sao jose dos pinhais|escola particular"
+    },
+    {
+      "id": "ChIJSUueSazw3JQRBK6Asnium-w",
+      "contactPhone": "554132834246",
+      "fingerprint": "contabilidade amorim - contabilidade em sao jose dos pinhais|sao jose dos pinhais|escritorio contabil"
+    },
+    {
+      "id": "ChIJccb4IaA6toERhdQB1jWBPs8",
+      "contactPhone": "5541996989292",
+      "fingerprint": "imobiliaria studios curitiba|curitiba|imobiliaria"
+    },
+    {
+      "id": "ChIJH0RYK5rw3JQRCeeO_EUJqxU",
+      "contactPhone": "5541997777459",
+      "fingerprint": "auto pecas primeiro de maio|curitiba|autopecas"
+    },
+    {
+      "id": "ChIJpaifDxDl3JQRUrlGRYa9wYg",
+      "contactPhone": "554132065000",
+      "fingerprint": "bebydas | adega e distribuidora de bebidas|curitiba|distribuidora"
+    },
+    {
+      "id": "ChIJP7Z2-wzw3JQR8iyVgs5yP38",
+      "contactPhone": "5541995278067",
+      "fingerprint": "conexao br 277 material de construcao & forros pvc|curitiba|material de construcao"
+    },
+    {
+      "id": "ChIJDYiX7RX33JQRe8iZpZEfJoc",
+      "contactPhone": "5541991679195",
+      "fingerprint": "escola educando para o futuro|sao jose dos pinhais|escola particular"
+    },
+    {
+      "id": "ChIJEZDerKvw3JQR5Z6EFXO3Dec",
+      "contactPhone": "554130351535",
+      "fingerprint": "bortolotti organizacao contabil|sao jose dos pinhais|escritorio contabil"
+    },
+    {
+      "id": "ChIJDaWkW4z33JQRQ4IZecaAR5o",
+      "contactPhone": "554133820801",
+      "fingerprint": "imobiliaria sao marcos|sao jose dos pinhais|imobiliaria"
+    },
+    {
+      "id": "ChIJPzVsO7r33JQRHmIwHofvkIM",
+      "contactPhone": "5541995197351",
+      "fingerprint": "exclusive auto pecas|sao jose dos pinhais|autopecas"
+    },
+    {
+      "id": "ChIJWf73sXTw3JQRaQO_rxX-2x0",
+      "contactPhone": "554135752453",
+      "fingerprint": "distribuidora duarte|curitiba|distribuidora"
+    },
+    {
+      "id": "ChIJrfhIbND33JQRUMWbVCARtZE",
+      "contactPhone": "554133859037",
+      "fingerprint": "escola estrela guia|sao jose dos pinhais|escola particular"
     }
   ]
 }

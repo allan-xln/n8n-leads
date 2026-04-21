@@ -68,7 +68,7 @@
   ],
   "pinData": {},
   "connections": {
-    "Daily Trigger 05:00": {
+    "Weekday Triggers 05:00 10:00 15:00": {
       "main": [
         [
           {
@@ -94,7 +94,7 @@
       "main": [
         [
           {
-            "node": "WhatsApp Placeholder",
+            "node": "Inspect WhatsApp Dispatch",
             "type": "main",
             "index": 0
           }
@@ -102,7 +102,7 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "timezone": "America/Sao_Paulo"
   },
